@@ -1,0 +1,272 @@
+:root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel2: #1e222b;
+    --accent: #ff7a45;
+    --accent2: #ffb347;
+    --border: #2a2f3a;
+    --muted: #9aa0ab;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: radial-gradient(circle at top left, #1a1f2b, #0f1115) fixed;
+    color: #f3f4f6;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ---------- colors ---------- */
+.bg-panel {
+    background-color: var(--panel) !important;
+}
+
+.bg-panel2 {
+    background-color: var(--panel2) !important;
+}
+
+.border-app {
+    border-color: var(--border) !important;
+}
+
+.text-muted-app {
+    color: var(--muted) !important;
+}
+
+.text-accent {
+    color: var(--accent) !important;
+}
+
+.text-accent2 {
+    color: var(--accent2) !important;
+}
+
+/* ---------- header ---------- */
+.app-header {
+    background: rgba(23, 26, 33, .9);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+.nav-link-app {
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+}
+
+.nav-link-app:hover {
+    color: #f3f4f6;
+}
+
+.nav-link-app.active {
+    color: #f3f4f6;
+    border-bottom-color: var(--accent);
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
+}
+
+/* ---------- card ---------- */
+.recipe-card {
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .5);
+}
+
+.recipe-img {
+    height: 288px;
+    object-fit: cover;
+}
+
+.cuisine-badge {
+    background: var(--accent);
+    color: #000;
+}
+
+/* ---------- save button (checkbox trick) ---------- */
+.save-btn {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: #f3f4f6;
+    border-radius: .75rem;
+    cursor: pointer;
+    transition: border-color .2s;
+}
+
+.save-btn:hover {
+    border-color: var(--accent);
+}
+
+.save-input:checked+.save-btn {
+    background: var(--accent);
+    color: #1a1a1a;
+    border-color: var(--accent);
+}
+
+.save-btn .on {
+    display: none;
+}
+
+.save-input:checked+.save-btn .on {
+    display: inline;
+}
+
+.save-input:checked+.save-btn .off {
+    display: none;
+}
+
+/* ---------- tabs (radio trick, no JS) ---------- */
+.tab-radio {
+    display: none;
+}
+
+.tab-bar {
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-label {
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+.tab-panel {
+    display: none;
+    line-height: 2rem;
+    font-size: 15px;
+    color: #e5e7eb;
+}
+
+#t1:checked~.tab-bar label[for="t1"],
+#t2:checked~.tab-bar label[for="t2"],
+#t3:checked~.tab-bar label[for="t3"],
+#t4:checked~.tab-bar label[for="t4"] {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+}
+
+#t1:checked~#tabIngredients,
+#t2:checked~#tabSteps,
+#t3:checked~#tabNutrition,
+#t4:checked~#tabTips {
+    display: block;
+}
+
+/* ---------- nutrition / tip ---------- */
+.nutri-box {
+    background: var(--panel2);
+    border-radius: .75rem;
+}
+
+.tip-box {
+    background: rgba(255, 122, 69, .1);
+    border: 1px solid rgba(255, 122, 69, .3);
+    color: #fed7aa;
+    border-radius: .75rem;
+}
+
+/* ---------- main button ---------- */
+.btn-another {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000;
+    font-weight: 700;
+    border: 0;
+    border-radius: 1rem;
+    padding: .875rem;
+}
+
+.btn-another:hover {
+    opacity: .9;
+    color: #000;
+}
+
+/* ---------- list items (saved / recent) ---------- */
+.list-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    transition: border-color .2s;
+}
+
+.list-item:hover {
+    border-color: var(--accent);
+}
+
+/* ---------- views via :target ---------- */
+#view-saved,
+#view-recent {
+    display: none;
+}
+
+#view-saved:target,
+#view-recent:target {
+    display: block;
+}
+
+body:has(#view-saved:target) #view-home,
+body:has(#view-recent:target) #view-home {
+    display: none;
+}
+
+body:has(#view-saved:target) .nav-link-app.active,
+body:has(#view-recent:target) .nav-link-app.active {
+    color: var(--muted);
+    border-bottom-color: transparent;
+}
+
+body:has(#view-saved:target) a[href="#view-saved"],
+body:has(#view-recent:target) a[href="#view-recent"] {
+    color: #f3f4f6;
+    border-bottom-color: var(--accent);
+}
+
+/* ---------- settings modal via :target ---------- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .6);
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay:target {
+    display: flex;
+}
+
+.modal-box {
+    width: 320px;
+    border-radius: 1rem;
+}
+
+.modal-box .form-select {
+    background-color: var(--panel2);
+    color: #f3f4f6;
+    border-color: var(--border);
+}
+
+.btn-done {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    border: 0;
+}
+
+.btn-done:hover {
+    background: var(--accent2);
+    color: #000;
+}
